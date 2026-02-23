@@ -4,6 +4,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/thomasisensee/stitchmeta/ci.yml?branch=main)](https://github.com/thomasisensee/stitchmeta/actions/workflows/ci.yml)
 [![Documentation Status](https://readthedocs.org/projects/stitchmeta/badge/)](https://stitchmeta.readthedocs.io/)
 [![codecov](https://codecov.io/gh/thomasisensee/stitchmeta/branch/main/graph/badge.svg)](https://codecov.io/gh/thomasisensee/stitchmeta)
+![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13%20|%203.14-blue)
 
 Extract metadata from microscopy image tiles and write FEABAS-compatible
 coordinate files for stitching pipelines.
@@ -53,7 +54,7 @@ stitchmeta extract \
   --output-dir feabas_coords
 ```
 
-The command writes one FEABAS text file per section (`001.txt`, `002.txt`, ...).
+The command writes one [FEABAS](https://github.com/YuelongWu/feabas) text file per section (`001.txt`, `002.txt`, ...).
 
 ## Python API
 
