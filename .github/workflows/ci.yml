@@ -25,7 +25,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         # setuptools_scm requires a non-shallow clone of the repository
         fetch-depth: 0
@@ -49,7 +49,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - uses: actions/setup-python@v6
       with:
@@ -60,12 +60,14 @@ jobs:
         python -m pip install .[tests]
 
     - name: Run Python tests
-      working-directory: ./tests
       run: |
-        python -m pytest --cov --cov-report=xml
+        python -m pytest --cov --cov-branch --cov-report=xml
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5
       with:
         fail_ci_if_error: true
         files: ./tests/coverage.xml
+        flags: python
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
