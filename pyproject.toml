@@ -18,7 +18,7 @@ maintainers = [
     { name = "Thomas Isensee", email = "thomas.isensee@iwr.uni-heidelberg.de" },
 ]
 version = "0.0.1"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 license-files = ["LICEN[CS]E*"]
 license = "MIT"
 classifiers = [
@@ -28,6 +28,7 @@ classifiers = [
 ]
 dependencies = [
     "click",
+    "tifffile",
 ]
 
 [project.urls]
@@ -50,7 +51,7 @@ stitchmeta = "stitchmeta.__main__:main"
 
 # Hatchling build configuration for a src-layout package.
 [tool.hatch.build.targets.wheel]
-packages = ["src/micro_grids"]
+packages = ["src/stitchmeta"]
 
 # The following is the configuration for the pytest test suite
 [tool.pytest.ini_options]

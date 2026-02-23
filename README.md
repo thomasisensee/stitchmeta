@@ -1,9 +1,12 @@
-# Welcome to stitchmeta
+# stitchmeta
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/thomasisensee/stitchmeta/ci.yml?branch=main)](https://github.com/thomasisensee/stitchmeta/actions/workflows/ci.yml)
 [![Documentation Status](https://readthedocs.org/projects/stitchmeta/badge/)](https://stitchmeta.readthedocs.io/)
 [![codecov](https://codecov.io/gh/thomasisensee/stitchmeta/branch/main/graph/badge.svg)](https://codecov.io/gh/thomasisensee/stitchmeta)
+
+Extract metadata from microscopy image tiles and write FEABAS-compatible
+coordinate files for stitching pipelines.
 
 ## Installation
 
@@ -29,6 +32,48 @@ Having done so, the test suite can be run using `pytest`:
 ```
 python -m pytest
 ```
+
+## Quick start
+
+Expected input layout:
+
+```text
+dataset_root/
+  001/
+    tile_a.tif
+    tile_b.tif
+  002/
+    ...
+```
+
+Run extraction:
+
+```bash
+stitchmeta extract \
+  --input-root dataset_root \
+  --output-dir feabas_coords
+```
+
+The command writes one FEABAS text file per section (`001.txt`, `002.txt`, ...).
+
+## Python API
+
+```python
+from stitchmeta import extract
+
+summary = extract(
+    input_root="dataset_root",
+    output_dir="feabas_coords",
+    reader_name="fibics_tiff",
+    invert_y=True,
+    error_policy="partial",
+)
+```
+
+## Extending to other datasets
+
+Register a new reader class implementing the `TileReader` interface and use it
+through `reader_name` in the API or CLI.
 
 ## Acknowledgments
 
