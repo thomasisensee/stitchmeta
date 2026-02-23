@@ -17,7 +17,7 @@ readme = "README.md"
 maintainers = [
     { name = "Thomas Isensee", email = "thomas.isensee@iwr.uni-heidelberg.de" },
 ]
-version = "0.0.1"
+version = "0.1.0"
 requires-python = ">=3.10"
 license-files = ["LICEN[CS]E*"]
 license = "MIT"
