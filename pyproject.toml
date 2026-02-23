@@ -33,6 +33,7 @@ dependencies = [
 
 [project.urls]
 repository = "https://github.com/thomasisensee/stitchmeta"
+documentation = "https://stitchmeta.readthedocs.io"
 
 [project.optional-dependencies]
 tests = [
