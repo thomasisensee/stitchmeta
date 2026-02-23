@@ -1,7 +1,6 @@
 """Command line interface for stitchmeta."""
 
 from pathlib import Path
-from typing import cast
 
 import click
 
@@ -44,7 +43,7 @@ def main() -> None:
 )
 @click.option(
     "--error-policy",
-    type=click.Choice(["partial", "section", "abort"], case_sensitive=False),
+    type=click.Choice([policy.value for policy in ErrorPolicy], case_sensitive=False),
     default="partial",
     show_default=True,
     help="Failure handling mode for tile parse errors.",
@@ -57,13 +56,13 @@ def extract_command(
     error_policy: str,
 ) -> None:
     """Extract and write FEABAS metadata files."""
-    normalized_error_policy = error_policy.lower()
-    if normalized_error_policy not in {"partial", "section", "abort"}:
+    try:
+        typed_error_policy = ErrorPolicy.from_value(error_policy)
+    except ValueError as exc:
         raise click.BadParameter(
             "error-policy must be one of: partial, section, abort",
             param_hint="--error-policy",
-        )
-    typed_error_policy = cast(ErrorPolicy, normalized_error_policy)
+        ) from exc
 
     summary = extract(
         input_root=input_root,

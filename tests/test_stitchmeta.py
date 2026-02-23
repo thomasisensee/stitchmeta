@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from stitchmeta import extract, list_readers
+from stitchmeta import ErrorPolicy, extract, list_readers
 
 from tests.conftest import fibics_xml, write_test_tiff
 
@@ -111,3 +111,22 @@ def test_extract_abort_policy_stops_run(tmp_path: Path) -> None:
     assert summary.sections_seen == 1
     assert not (output_dir / "001.txt").exists()
     assert not (output_dir / "002.txt").exists()
+
+
+def test_extract_accepts_error_policy_enum(tmp_path: Path) -> None:
+    input_root = tmp_path / "input"
+    output_dir = tmp_path / "output"
+    section_dir = input_root / "001"
+    section_dir.mkdir(parents=True)
+    _write_good_section(section_dir)
+    write_test_tiff(section_dir / "tile_bad.tif", xml=None)
+
+    summary = extract(
+        input_root=input_root,
+        output_dir=output_dir,
+        error_policy=ErrorPolicy.SECTION,
+    )
+
+    assert summary.sections_written == 0
+    assert summary.tiles_skipped == 1
+    assert not (output_dir / "001.txt").exists()

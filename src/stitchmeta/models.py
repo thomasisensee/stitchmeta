@@ -1,10 +1,33 @@
 """Typed domain models used by extraction and output formatting."""
 
 from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
-from typing import Literal
 
-ErrorPolicy = Literal["partial", "section", "abort"]
+
+class ErrorPolicy(str, Enum):
+    """Tile-parse error handling mode.
+
+    `partial`: skip invalid tiles and keep writing valid ones.
+    `section`: skip the entire section if any tile fails.
+    `abort`: stop extraction immediately on the first tile failure.
+    """
+
+    PARTIAL = "partial"
+    SECTION = "section"
+    ABORT = "abort"
+
+    @classmethod
+    def from_value(cls, value: "ErrorPolicy | str") -> "ErrorPolicy":
+        """Normalize user input into a supported error policy enum."""
+        if isinstance(value, cls):
+            return value
+        if not isinstance(value, str):
+            raise TypeError("error policy must be an ErrorPolicy or string value")
+        try:
+            return cls(value.lower())
+        except ValueError as exc:
+            raise ValueError(f"unsupported error policy: {value}") from exc
 
 
 @dataclass(frozen=True, slots=True)

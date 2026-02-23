@@ -112,7 +112,7 @@ def extract(
     *,
     reader_name: str = "fibics_tiff",
     invert_y: bool = True,
-    error_policy: ErrorPolicy = "partial",
+    error_policy: ErrorPolicy | str = ErrorPolicy.PARTIAL,
 ) -> RunSummary:
     """Extract section tile layout and write FEABAS files.
 
@@ -133,10 +133,9 @@ def extract(
     """
     input_root = Path(input_root)
     output_dir = Path(output_dir)
+    policy = ErrorPolicy.from_value(error_policy)
     if not input_root.is_dir():
         raise ValueError(f"input root is not a directory: {input_root}")
-    if error_policy not in {"partial", "section", "abort"}:
-        raise ValueError(f"unsupported error policy: {error_policy}")
 
     reader = get_reader(reader_name)
     summary = RunSummary()
@@ -171,7 +170,7 @@ def extract(
                 section_result.tiles_skipped += 1
                 section_result.errors.append(f"{tile_path.name}: {exc}")
                 section_has_errors = True
-                if error_policy == "abort":
+                if policy is ErrorPolicy.ABORT:
                     summary.section_results.append(section_result)
                     summary.aborted = True
                     summary.abort_reason = f"{section_dir.name}/{tile_path.name}: {exc}"
@@ -181,7 +180,7 @@ def extract(
             summary.section_results.append(section_result)
             continue
 
-        if error_policy == "section" and section_has_errors:
+        if policy is ErrorPolicy.SECTION and section_has_errors:
             summary.section_results.append(section_result)
             continue
 
