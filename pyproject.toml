@@ -58,3 +58,9 @@ packages = ["src/stitchmeta"]
 testpaths = [
     "tests",
 ]
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
+exclude = "doc"
