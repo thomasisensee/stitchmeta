@@ -15,11 +15,6 @@ from stitchmeta.models import (
 from stitchmeta.readers.registry import get_reader
 
 
-def _iround(value: float) -> int:
-    """Round to nearest integer using Python's built-in rounding semantics."""
-    return int(round(value))
-
-
 def _discover_sections(input_root: Path) -> list[Path]:
     """Return immediate subdirectories sorted by name."""
     return sorted(path for path in input_root.iterdir() if path.is_dir())
@@ -81,8 +76,8 @@ def build_feabas_section_data(
 
     placements: list[FeabasTilePlacement] = []
     for tile, y_um in zip(tiles, transformed_y_um):
-        x_px = _iround((tile.x_um - min_x_um) * px_per_um_x)
-        y_px = _iround((y_um - min_y_um) * px_per_um_y)
+        x_px = int(round((tile.x_um - min_x_um) * px_per_um_x))
+        y_px = int(round((y_um - min_y_um) * px_per_um_y))
         placements.append(FeabasTilePlacement(name=tile.name, x_px=x_px, y_px=y_px))
 
     resolution_x_nm = reference.fov_x_um * 1000.0 / reference.width_px
