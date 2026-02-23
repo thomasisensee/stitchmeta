@@ -1,0 +1,59 @@
+# This section describes the requirements of the build/installation
+# process itself. Being able to do this was the original reason to
+# introduce pyproject.toml
+[build-system]
+requires = [
+    "hatchling>=1.25",
+]
+build-backend = "hatchling.build"
+
+# This section provides general project metadata that is used across
+# a variety of build tools. Notably, the version specified here is the
+# single source of truth for stitchmeta's version
+[project]
+name = "stitchmeta"
+description = "Extract metadata from microscopy images and provide mosaic information in feabas-ready format."
+readme = "README.md"
+maintainers = [
+    { name = "Thomas Isensee", email = "thomas.isensee@iwr.uni-heidelberg.de" },
+]
+version = "0.0.1"
+requires-python = ">=3.13"
+license-files = ["LICEN[CS]E*"]
+license = "MIT"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "click",
+]
+
+[project.urls]
+repository = "https://github.com/thomasisensee/stitchmeta"
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+    "pytest-cov",
+]
+docs = [
+    "sphinx",
+    "sphinx_mdinclude",
+    "sphinx_rtd_theme",
+]
+
+# Command line scripts installed as part of the installation
+[project.scripts]
+stitchmeta = "stitchmeta.__main__:main"
+
+# Hatchling build configuration for a src-layout package.
+[tool.hatch.build.targets.wheel]
+packages = ["src/micro_grids"]
+
+# The following is the configuration for the pytest test suite
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
