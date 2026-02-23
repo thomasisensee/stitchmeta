@@ -1,9 +1,9 @@
 # stitchmeta
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/thomasisensee/stitchmeta/ci.yml?branch=main)](https://github.com/thomasisensee/stitchmeta/actions/workflows/ci.yml)
+[![Build](https://github.com/thomasisensee/stitchmeta/actions/workflows/ci.yml/badge.svg)](https://github.com/thomasisensee/stitchmeta/actions)
 [![Documentation Status](https://readthedocs.org/projects/stitchmeta/badge/)](https://stitchmeta.readthedocs.io/)
-[![codecov](https://codecov.io/gh/thomasisensee/stitchmeta/branch/main/graph/badge.svg)](https://codecov.io/gh/thomasisensee/stitchmeta)
+[![codecov](https://codecov.io/gh/thomasisensee/stitchmeta/graph/badge.svg?token=GPDL61KZDU)](https://codecov.io/gh/thomasisensee/stitchmeta)
 ![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13%20|%203.14-blue)
 
 Extract metadata from microscopy image tiles and write FEABAS-compatible
