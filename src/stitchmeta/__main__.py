@@ -1,11 +1,13 @@
 """Command line interface for stitchmeta."""
 
 from pathlib import Path
+from typing import cast
 
 import click
 
 from stitchmeta import __version__
 from stitchmeta.extractor import extract
+from stitchmeta.models import ErrorPolicy
 
 
 @click.group(context_settings={"help_option_names": ["-h", "--help"]})
@@ -55,12 +57,20 @@ def extract_command(
     error_policy: str,
 ) -> None:
     """Extract and write FEABAS metadata files."""
+    normalized_error_policy = error_policy.lower()
+    if normalized_error_policy not in {"partial", "section", "abort"}:
+        raise click.BadParameter(
+            "error-policy must be one of: partial, section, abort",
+            param_hint="--error-policy",
+        )
+    typed_error_policy = cast(ErrorPolicy, normalized_error_policy)
+
     summary = extract(
         input_root=input_root,
         output_dir=output_dir,
         reader_name=reader_name,
         invert_y=invert_y,
-        error_policy=error_policy.lower(),
+        error_policy=typed_error_policy,
     )
 
     for section in summary.section_results:
