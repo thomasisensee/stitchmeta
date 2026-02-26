@@ -45,11 +45,11 @@ def test_stitchmeta_cli_abort_nonzero_exit(tmp_path):
         main,
         (
             "extract",
-            "--input-root",
+            "-i",
             str(input_root),
-            "--output-dir",
+            "-o",
             str(output_dir),
-            "--error-policy",
+            "-e",
             "abort",
         ),
     )

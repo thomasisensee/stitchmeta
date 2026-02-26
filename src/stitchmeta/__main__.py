@@ -17,18 +17,21 @@ def main() -> None:
 
 @main.command("extract")
 @click.option(
+    "-i",
     "--input-root",
     type=click.Path(exists=True, file_okay=False, path_type=Path),
     required=True,
     help="Dataset root with section subdirectories (e.g., 001, 002).",
 )
 @click.option(
+    "-o",
     "--output-dir",
     type=click.Path(file_okay=False, path_type=Path),
     required=True,
     help="Output directory for FEABAS files.",
 )
 @click.option(
+    "-r",
     "--reader",
     "reader_name",
     default="fibics_tiff",
@@ -42,6 +45,7 @@ def main() -> None:
     help="Invert Y-axis from SEM-style to image-style coordinates.",
 )
 @click.option(
+    "-e",
     "--error-policy",
     type=click.Choice([policy.value for policy in ErrorPolicy], case_sensitive=False),
     default="partial",

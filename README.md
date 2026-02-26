@@ -50,8 +50,8 @@ Run extraction:
 
 ```bash
 stitchmeta extract \
-  --input-root dataset_root \
-  --output-dir feabas_coords
+  -i dataset_root \
+  -o feabas_coords
 ```
 
 The command writes one [FEABAS](https://github.com/YuelongWu/feabas) text file per section (`001.txt`, `002.txt`, ...).
