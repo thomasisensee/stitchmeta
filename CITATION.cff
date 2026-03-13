@@ -1,16 +1,17 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
-title: "stitchmeta"
-abstract: "Extract metadata from microscopy images and provide mosaic information in feabas-ready format."
+message: If you want to cite this software, you can do so using the metadata from this file.
+title: stitchmeta
+abstract: Extract metadata from microscopy images and provide mosaic information in feabas-ready format.
+authors:
+  - family-names: Isensee
+    given-names: Thomas
+    orcid: "https://orcid.org/0000-0002-7242-4529"
+version: 0.0.1
 keywords:
   - microscopy
   - metadata
   - mosaic
   - tile
-authors:
-  - name: "Thomas Isensee"
-    orcid: "0000-0002-7242-4529"
-    version: 0.0.1
 date-released: "2026-02-23"
 license: MIT
 repository-code: https://github.com/thomasisensee/stitchmeta
