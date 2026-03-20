@@ -10,7 +10,19 @@
 Extract metadata from microscopy image tiles and write FEABAS-compatible
 coordinate files for stitching pipelines.
 
-## Installation from source
+## Installing stitchmeta
+
+The preferred way of installing `stitchmeta` is using `pip`.
+
+### Installing the release version using pip
+
+`stitchmeta` can be installed using `pip` to obtain the [current release](https://pypi.org/project/stitchmeta/):
+
+```
+python -m pip install stitchmeta
+```
+
+### Installation from source
 
 Clone this repository and install from the local source tree:
 
@@ -20,9 +32,9 @@ cd stitchmeta
 python -m pip install .
 ```
 
-## Development installation
+### Development installation
 
-For development, use an editable install:
+For development, it is recommended to use an editable install:
 
 ```bash
 python -m pip install --editable .[tests]
