@@ -4,6 +4,7 @@
 [![Build](https://github.com/thomasisensee/stitchmeta/actions/workflows/ci.yml/badge.svg)](https://github.com/thomasisensee/stitchmeta/actions)
 [![Documentation Status](https://readthedocs.org/projects/stitchmeta/badge/)](https://stitchmeta.readthedocs.io/)
 [![codecov](https://codecov.io/gh/thomasisensee/stitchmeta/graph/badge.svg?token=GPDL61KZDU)](https://codecov.io/gh/thomasisensee/stitchmeta)
+[![PyPI](https://img.shields.io/pypi/v/stitchmeta)](https://pypi.org/project/stitchmeta)
 ![Python](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13%20|%203.14-blue)
 
 Extract metadata from microscopy image tiles and write FEABAS-compatible
