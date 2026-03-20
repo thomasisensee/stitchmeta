@@ -1,0 +1,126 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_target:
+        description: "Choose whether to build only, publish to TestPyPI, or publish to PyPI"
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - testpypi
+          - pypi
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    name: Build distribution artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Verify release tag matches package version
+        if: ${{ github.event_name == 'push' || inputs.publish_target != 'dry-run' }}
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+          import tomllib
+
+          pyproject = pathlib.Path("pyproject.toml")
+          version = tomllib.loads(pyproject.read_text())["project"]["version"]
+          ref = os.environ["GITHUB_REF"]
+          expected_ref = f"refs/tags/v{version}"
+
+          if ref != expected_ref:
+              raise SystemExit(
+                  "Publishing requires running this workflow from the "
+                  f"tag {expected_ref}, but GitHub provided {ref!r}."
+              )
+
+          print(f"Publishing from {ref}, matching project version {version}.")
+          PY
+
+      - name: Install build and test dependencies
+        run: |
+          python -m pip install --upgrade pip build twine pytest
+
+      - name: Build source and wheel distributions
+        run: |
+          python -m build
+
+      - name: Check built distributions
+        run: |
+          python -m twine check dist/*
+
+      - name: Install package from built wheel
+        run: |
+          python -m pip install --force-reinstall dist/*.whl
+
+      - name: Run Python tests
+        run: |
+          python -m pytest
+
+      - name: Upload built distributions
+        uses: actions/upload-artifact@v7
+        with:
+          name: python-package-distributions
+          path: dist/*
+          if-no-files-found: error
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_target == 'testpypi' }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/stitchmeta/
+
+    steps:
+      - name: Download built distributions
+        uses: actions/download-artifact@v8
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  publish-pypi:
+    name: Publish to PyPI
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_target == 'pypi') }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    environment:
+      name: pypi
+      url: https://pypi.org/project/stitchmeta/
+
+    steps:
+      - name: Download built distributions
+        uses: actions/download-artifact@v8
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
