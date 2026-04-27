@@ -8,12 +8,9 @@ build:
 sphinx:
   configuration: doc/conf.py
 
-formats: all
-
 python:
   install:
     - method: uv
-      command: pip
-      path: .
+      command: sync
       extras:
         - docs
