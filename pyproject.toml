@@ -65,3 +65,9 @@ python_version = "3.14"
 warn_return_any = true
 warn_unused_configs = true
 exclude = "doc"
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/stitchmeta/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
