@@ -17,9 +17,8 @@ author = "Thomas Isensee"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx_mdinclude",
+    "myst_parser",
     "sphinx.ext.autodoc",
-    "sphinx_rtd_theme",
 ]
 
 # -- Options for HTML output -------------------------------------------------
