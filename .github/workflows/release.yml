@@ -98,9 +98,7 @@ jobs:
 
       - name: Publish distributions to TestPyPI
         run: |
-          uv publish --index testpypi \
-          --config-file ${{ github.workspace }}/pyproject.toml \
-          dist/*
+          uv publish --index testpypi dist/*
 
   publish-pypi:
     name: Publish to PyPI
