@@ -33,8 +33,8 @@ jobs:
 
       - name: Verify release tag matches package version
         if: ${{ github.event_name == 'push' }}
+        shell: python
         run: |
-          python - <<'PY'
           import os
           import pathlib
           import tomllib
@@ -51,7 +51,6 @@ jobs:
               )
 
           print(f"Publishing from {ref}, matching project version {version}.")
-          PY
 
       - name: Install uv
         uses: astral-sh/setup-uv@v8.1.0
