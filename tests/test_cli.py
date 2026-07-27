@@ -1,7 +1,6 @@
 from click.testing import CliRunner
 
 from stitchmeta.__main__ import main
-
 from tests.conftest import fibics_xml, write_test_tiff
 
 

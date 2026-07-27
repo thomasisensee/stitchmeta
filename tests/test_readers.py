@@ -4,7 +4,6 @@ import pytest
 
 from stitchmeta.readers.base import TileReaderError
 from stitchmeta.readers.fibics_tiff import FibicsTiffReader
-
 from tests.conftest import fibics_xml, write_test_tiff
 
 

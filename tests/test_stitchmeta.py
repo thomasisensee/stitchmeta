@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from stitchmeta import ErrorPolicy, extract, list_readers
-
 from tests.conftest import fibics_xml, write_test_tiff
 
 
