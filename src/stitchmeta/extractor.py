@@ -1,8 +1,8 @@
 """Metadata extraction orchestration and FEABAS file generation."""
 
 import math
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from stitchmeta.models import (
     ErrorPolicy,
