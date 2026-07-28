@@ -76,8 +76,8 @@ def build_feabas_section_data(
 
     placements: list[FeabasTilePlacement] = []
     for tile, y_um in zip(tiles, transformed_y_um):
-        x_px = int(round((tile.x_um - min_x_um) * px_per_um_x))
-        y_px = int(round((y_um - min_y_um) * px_per_um_y))
+        x_px = round((tile.x_um - min_x_um) * px_per_um_x)
+        y_px = round((y_um - min_y_um) * px_per_um_y)
         placements.append(FeabasTilePlacement(name=tile.name, x_px=x_px, y_px=y_px))
 
     resolution_x_nm = reference.fov_x_um * 1000.0 / reference.width_px
