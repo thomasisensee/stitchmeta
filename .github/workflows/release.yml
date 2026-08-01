@@ -53,7 +53,7 @@ jobs:
           print(f"Publishing from {ref}, matching project version {version}.")
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v9.0.0
 
       - name: Build source and wheel distributions
         run: uv build
@@ -87,7 +87,7 @@ jobs:
           path: dist/
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v9.0.0
 
       - name: Show downloaded files
         run: |
@@ -121,7 +121,7 @@ jobs:
           path: dist/
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@v9.0.0
 
       - name: Show downloaded files
         run: |
